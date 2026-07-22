@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+venv/
+.venv/
+
+# Logs (keep the directory, ignore generated log files)
+logs/*.log
+
+# OS
+.DS_Store

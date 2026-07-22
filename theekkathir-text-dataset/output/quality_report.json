@@ -1,0 +1,10 @@
+{
+  "total_articles": 5,
+  "unicode_removed": 1,
+  "english_words_removed": 4,
+  "words_restored": 2,
+  "unknown_words": 10,
+  "cleaning_percentage": 100.0,
+  "average_confidence": 0.1333,
+  "execution_time_seconds": 0.0015
+}
