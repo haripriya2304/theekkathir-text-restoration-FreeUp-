@@ -19,8 +19,7 @@ logger = setup_logger(__name__)
 class SpaceNormalizer:
     """Normalizes whitespace in article text."""
 
-    #: Matches any run of one-or-more whitespace characters (space, tab,
-    #: newline, and any stray Unicode space category survivors).
+    
     _WHITESPACE_RUN_PATTERN = re.compile(r"\s+")
 
     def normalize(self, text: str) -> str:
