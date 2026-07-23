@@ -27,9 +27,6 @@ from text_cleaner.utils import setup_logger
 
 logger = setup_logger(__name__)
 
-#: Called with (current_index, total_rows) after each row is cleaned,
-#: so a caller (CLI progress bar, Streamlit progress bar, etc.) can
-#: report progress without this module knowing anything about UI.
 ProgressCallback = Callable[[int, int], None]
 
 
@@ -79,8 +76,7 @@ def process_dataframe(
             dictionary_loader=DictionaryLoader(), frequency_analyzer=frequency_analyzer
         )
     elif not engine.frequency_analyzer.is_fitted:
-        # Caller supplied an engine but never fitted its frequency
-        # analyzer -- fit it now so context/frequency scoring works.
+    
         engine.frequency_analyzer.build_from_texts(df[text_column].fillna("").astype(str))
 
     report = QualityReport()
