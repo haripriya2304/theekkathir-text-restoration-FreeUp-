@@ -20,18 +20,13 @@ from typing import Iterator
 
 from text_cleaner import config
 
-# ---------------------------------------------------------------------------
-# Character range helpers
-# ---------------------------------------------------------------------------
 
-#: The Unicode block reserved for the Tamil script (U+0B80-U+0BFF).
 _TAMIL_BLOCK_PATTERN = re.compile(r"[\u0B80-\u0BFF]")
 
-#: A "Tamil token" must contain only Tamil letters/marks/digits/punct
-#: that belong to the Tamil block (no ASCII letters mixed in).
+
 _PURE_TAMIL_TOKEN_PATTERN = re.compile(r"^[\u0B80-\u0BFF]+$")
 
-#: Pure ASCII alphabetic token (used to detect English words).
+
 _ASCII_ALPHA_TOKEN_PATTERN = re.compile(r"^[A-Za-z]+$")
 
 
@@ -50,9 +45,7 @@ def is_english_word(token: str) -> bool:
     return bool(_ASCII_ALPHA_TOKEN_PATTERN.match(token))
 
 
-# ---------------------------------------------------------------------------
-# Logging
-# ---------------------------------------------------------------------------
+
 
 _LOGGER_CONFIGURED = False
 
