@@ -29,14 +29,13 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-# Allow running `streamlit run app.py` from the repo root without
-# installing the package first.
+
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
-from text_cleaner import config  # noqa: E402
+from text_cleaner import config  
 from text_cleaner.dictionary_loader import DictionaryLoader  # noqa: E402
 from text_cleaner.frequency_analyzer import FrequencyAnalyzer  # noqa: E402
-from text_cleaner.pipeline import process_dataframe  # noqa: E402
+from text_cleaner.pipeline import process_dataframe 
 from text_cleaner.restoration_engine import RestorationEngine  # noqa: E402
 
 st.set_page_config(page_title="Tamil Text Restoration Engine", page_icon="🧹", layout="wide")
@@ -145,7 +144,7 @@ text_column = st.selectbox(
 run_clicked = st.button("🚀 Clean & Restore Dataset", type="primary")
 
 if run_clicked:
-    # --- Build the dictionary loader ------------------------------------
+    
     if custom_dictionary_file is not None:
         custom_path = Path("/tmp") / "uploaded_tamil_dictionary.txt"
         custom_path.write_bytes(custom_dictionary_file.getvalue())
@@ -176,7 +175,7 @@ if run_clicked:
     progress_bar.progress(100, text="Done!")
     st.success("✅ Cleaning complete!")
 
-    # --- Metrics -----------------------------------------------------------
+    
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("Articles processed", f"{report.total_articles:,}")
     m2.metric("Words restored", f"{report.words_restored:,}")
@@ -188,7 +187,7 @@ if run_clicked:
     m6.metric("English tokens removed", f"{report.english_words_removed:,}")
     m7.metric("Rejected merge candidates", f"{report.unknown_words:,}")
 
-    # --- Before / after preview --------------------------------------------
+    
     st.subheader("Before / After Preview")
     preview_df = pd.DataFrame(
         {
@@ -202,7 +201,7 @@ if run_clicked:
         use_container_width=True,
     )
 
-    # --- Build downloadable ZIP ---------------------------------------------
+    
     suffix = Path(uploaded_file.name).suffix.lower()
     cleaned_bytes = build_output_bytes(cleaned_df, suffix)
     cleaned_filename = f"cleaned_{Path(uploaded_file.name).stem}{suffix}"
