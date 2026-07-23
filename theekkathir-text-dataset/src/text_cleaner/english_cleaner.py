@@ -23,7 +23,7 @@ class EnglishCleanStats:
     """Counts collected during a single :meth:`EnglishCleaner.clean` call."""
 
     english_words_removed: int = 0
-    removed_tokens: list = None  # type: ignore[assignment]
+    removed_tokens: list = None  
 
     def __post_init__(self) -> None:
         if self.removed_tokens is None:
@@ -41,8 +41,8 @@ class EnglishCleaner:
 
     def __init__(
         self,
-        noise_words: Set[str] = None,  # type: ignore[assignment]
-        whitelist: Set[str] = None,  # type: ignore[assignment]
+        noise_words: Set[str] = None,  
+        whitelist: Set[str] = None,  
         strip_all_isolated_english: bool = config.STRIP_ALL_ISOLATED_ENGLISH,
     ) -> None:
         self.noise_words = {w.lower() for w in (noise_words or config.ENGLISH_NOISE_WORDS)}
@@ -52,9 +52,7 @@ class EnglishCleaner:
 
     def _should_remove(self, token: str) -> bool:
         """Decide whether a single whitespace-delimited *token* should go."""
-        # Strip common surrounding punctuation before comparing, but keep
-        # the original token when re-inserting so we don't mangle text
-        # that mixes punctuation with Tamil (rare, but be safe).
+        
         stripped = token.strip(".,!?:;()[]\"'")
         if not stripped or not is_english_word(stripped):
             return False
