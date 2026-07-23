@@ -33,11 +33,9 @@ from pathlib import Path
 
 import pandas as pd
 
-# Allow running as `python main.py` from the repo root without installing
-# the package first.
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
-from text_cleaner import config  # noqa: E402
+from text_cleaner import config  
 from text_cleaner.dictionary_loader import DictionaryLoader  # noqa: E402
 from text_cleaner.frequency_analyzer import FrequencyAnalyzer  # noqa: E402
 from text_cleaner.pipeline import process_dataframe  # noqa: E402
@@ -100,7 +98,7 @@ def run(args: argparse.Namespace) -> int:
     logger.info("Reading input dataset: %s", args.input)
     try:
         df = pd.read_parquet(args.input)
-    except Exception as exc:  # noqa: BLE001 - surface any read failure clearly
+    except Exception as exc:  
         logger.error("Failed to read input Parquet file: %s", exc)
         return 1
 
