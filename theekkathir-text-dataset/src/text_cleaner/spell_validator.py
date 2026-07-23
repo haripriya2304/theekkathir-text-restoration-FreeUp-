@@ -19,11 +19,9 @@ from text_cleaner.utils import setup_logger
 
 logger = setup_logger(__name__)
 
-#: A structurally valid Tamil word must start with a consonant, vowel,
-#: or independent vowel sign -- never with a *dependent* vowel sign or
-#: virama/pulli in isolation (those can only follow a consonant).
+
 _DEPENDENT_SIGNS_START_PATTERN = re.compile(
-    r"^[\u0BBE-\u0BCD\u0BD7]"  # dependent vowel signs, virama, au length mark
+    r"^[\u0BBE-\u0BCD\u0BD7]"  
 )
 
 
@@ -83,7 +81,7 @@ class SpellValidator:
             return True
 
         if not self.validator_config.require_dictionary_or_frequency:
-            # Dictionary-only mode requested no fallback -- reject.
+            
             logger.debug("Rejected '%s': not found in dictionary", word)
             return False
 
