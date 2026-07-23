@@ -124,7 +124,7 @@ if uploaded_file is None:
 
 try:
     df = read_uploaded_file(uploaded_file)
-except Exception as exc:  # noqa: BLE001
+except Exception as exc:  
     st.error(f"Could not read the uploaded file: {exc}")
     st.stop()
 
