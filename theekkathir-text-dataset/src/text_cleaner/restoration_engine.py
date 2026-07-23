@@ -117,9 +117,6 @@ class RestorationEngine:
 
         self.last_stats = RestorationStats()
 
-    # ------------------------------------------------------------------
-    # Scoring
-    # ------------------------------------------------------------------
 
     def _dictionary_score(self, merged: str, left: str, right: str) -> float:
         """1.0 if the merged word is known; small credit if both halves
@@ -141,10 +138,8 @@ class RestorationEngine:
             + self.frequency_analyzer.get_frequency(right)
         )
 
-        # Laplace smoothing avoids log(0) and division-by-zero.
+        
         ratio = (merged_freq + 1) / (fragment_freq + 1)
-        # log-ratio -> sigmoid gives a smooth 0..1 score, centered at 0.5
-        # when merged and fragment frequencies are equal.
         score = 1 / (1 + math.exp(-math.log(ratio)))
         return score
 
@@ -168,8 +163,6 @@ class RestorationEngine:
             return 0.0
 
         total = sum(signals)
-        # Smooth, bounded transform so a handful of bigram hits already
-        # yields a meaningful score without needing huge corpora.
         return 1 - math.exp(-total / 2.0)
 
     def compute_confidence(
@@ -207,9 +200,7 @@ class RestorationEngine:
             + self.weights.context * ctx_score
         )
 
-        # Split score is the mirror evidence: are the two fragments each
-        # independently valid dictionary words? If so, that's strong
-        # evidence they should stay split.
+    
         left_known = self.dictionary_loader.contains(left)
         right_known = self.dictionary_loader.contains(right)
         split_dict_score = 1.0 if (left_known and right_known) else 0.0
@@ -226,9 +217,7 @@ class RestorationEngine:
             merged=should_merge,
         )
 
-    # ------------------------------------------------------------------
-    # Restoration
-    # ------------------------------------------------------------------
+    
 
     def restore(self, text: str) -> str:
         """Restore split Tamil words within *text*.
@@ -302,9 +291,7 @@ class RestorationEngine:
 
         return " ".join(result)
 
-    # ------------------------------------------------------------------
-    # Full pipeline
-    # ------------------------------------------------------------------
+    
 
     def clean_article(self, text: str) -> str:
         """Run the complete cleaning pipeline on a single article.
